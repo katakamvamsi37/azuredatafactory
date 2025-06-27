@@ -207,6 +207,7 @@
 				"type": "AzureSqlTable",
 				"schema": [],
 				"typeProperties": {
+					"schema": "vamsi",
 					"table": {
 						"value": "@dataset().TableName",
 						"type": "Expression"

@@ -404,7 +404,7 @@
 										},
 										"ifTrueActivities": [
 											{
-												"name": "Set variable1",
+												"name": "Set variable2",
 												"type": "SetVariable",
 												"dependsOn": [],
 												"policy": {
@@ -492,7 +492,7 @@
 								"type": "DatasetReference",
 								"parameters": {
 									"TableName": {
-										"value": "@concat(replace(variables('LatestFileName'),'.csv' ,'' ))",
+										"value": "@concat('sales_', pipeline().TriggerType, '.csv')",
 										"type": "Expression"
 									}
 								}
@@ -777,6 +777,7 @@
 				"type": "AzureSqlTable",
 				"schema": [],
 				"typeProperties": {
+					"schema": "vamsi",
 					"table": {
 						"value": "@dataset().TableName",
 						"type": "Expression"
