@@ -18,7 +18,7 @@
 					"source": {
 						"type": "ExcelSource",
 						"storeSettings": {
-							"type": "AzureBlobStorageReadSettings",
+							"type": "AzureFileStorageReadSettings",
 							"recursive": true,
 							"enablePartitionDiscovery": false
 						}
