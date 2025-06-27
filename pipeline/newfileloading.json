@@ -1,5 +1,5 @@
 {
-	"name": "pipeline1",
+	"name": "newfileloading",
 	"properties": {
 		"activities": [
 			{
@@ -16,12 +16,10 @@
 				"userProperties": [],
 				"typeProperties": {
 					"dataset": {
-						"referenceName": "DelimitedText4",
+						"referenceName": "DelimitedText3",
 						"type": "DatasetReference"
 					},
-					"fieldList": [
-						"childItems"
-					],
+					"fieldList": [],
 					"storeSettings": {
 						"type": "AzureBlobStorageReadSettings",
 						"enablePartitionDiscovery": false
@@ -44,10 +42,6 @@
 				],
 				"userProperties": [],
 				"typeProperties": {
-					"items": {
-						"value": "@activity('Get Metadata1').output.childItems",
-						"type": "Expression"
-					},
 					"activities": [
 						{
 							"name": "Get Metadata2",
@@ -64,9 +58,18 @@
 							"typeProperties": {
 								"dataset": {
 									"referenceName": "DelimitedText6",
-									"type": "DatasetReference"
+									"type": "DatasetReference",
+									"parameters": {
+										"FileName": {
+											"value": "@item()",
+											"type": "Expression"
+										}
+									}
 								},
-								"fieldList": [],
+								"fieldList": [
+									"itemName",
+									"lastModified"
+								],
 								"storeSettings": {
 									"type": "AzureBlobStorageReadSettings",
 									"enablePartitionDiscovery": false
@@ -80,8 +83,6 @@
 				}
 			}
 		],
-		"annotations": [],
-		"lastPublishTime": "2025-06-26T07:45:54Z"
-	},
-	"type": "Microsoft.DataFactory/factories/pipelines"
+		"annotations": []
+	}
 }
