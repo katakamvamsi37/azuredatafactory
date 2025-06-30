@@ -15,10 +15,6 @@
 				},
 				"userProperties": [],
 				"typeProperties": {
-					"dataset": {
-						"referenceName": "Excel5",
-						"type": "DatasetReference"
-					},
 					"fieldList": [
 						"childItems"
 					],
