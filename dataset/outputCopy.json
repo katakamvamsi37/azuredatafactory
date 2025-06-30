@@ -10,6 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
+				"fileName": "STUD.CSV",
 				"folderPath": "output",
 				"fileSystem": "adlscontaner"
 			},
