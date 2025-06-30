@@ -232,7 +232,7 @@
 				],
 				"typeProperties": {
 					"schema": "dbo",
-					"table": "employee"
+					"table": "STUD"
 				}
 			},
 			"dependsOn": [
