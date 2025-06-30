@@ -23,6 +23,12 @@
 		"AzureSqlDatabase1_password": {
 			"value": ""
 		},
+		"adlscontainerinp_accountKey": {
+			"value": ""
+		},
+		"adlscontaineroutput_accountKey": {
+			"value": ""
+		},
 		"inputFolder_Dyn_connectionString": {
 			"value": ""
 		},
@@ -34,6 +40,12 @@
 		},
 		"AzureSqlDatabase1_properties_typeProperties_userName": {
 			"value": "krish"
+		},
+		"adlscontainerinp_properties_typeProperties_url": {
+			"value": "https://adlsdemo13.dfs.core.windows.net/"
+		},
+		"adlscontaineroutput_properties_typeProperties_url": {
+			"value": "https://adlsdemo13.dfs.core.windows.net/"
 		}
 	}
 }
