@@ -10,7 +10,8 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobStorageLocation",
-				"folderPath": "output",
+				"fileName": "Book82.csv",
+				"folderPath": "input",
 				"container": "sheel"
 			},
 			"columnDelimiter": ",",

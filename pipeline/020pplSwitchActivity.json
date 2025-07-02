@@ -1,0 +1,75 @@
+{
+	"name": "020pplSwitchActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "Switch2",
+				"type": "Switch",
+				"dependsOn": [],
+				"userProperties": [],
+				"typeProperties": {
+					"on": {
+						"value": "@variables('a')",
+						"type": "Expression"
+					},
+					"cases": [
+						{
+							"value": "10",
+							"activities": [
+								{
+									"name": "Set variable1",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "b",
+										"value": {
+											"value": "@variables('a')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						},
+						{
+							"value": "20",
+							"activities": [
+								{
+									"name": "Set variable2",
+									"type": "SetVariable",
+									"dependsOn": [],
+									"policy": {
+										"secureOutput": false,
+										"secureInput": false
+									},
+									"userProperties": [],
+									"typeProperties": {
+										"variableName": "a",
+										"value": {
+											"value": "@variables('b')",
+											"type": "Expression"
+										}
+									}
+								}
+							]
+						}
+					]
+				}
+			}
+		],
+		"variables": {
+			"a": {
+				"type": "String",
+				"defaultValue": "20"
+			},
+			"b": {
+				"type": "String"
+			}
+		},
+		"annotations": []
+	}
+}
