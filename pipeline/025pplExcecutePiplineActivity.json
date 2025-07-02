@@ -1,0 +1,24 @@
+{
+	"name": "025pplExcecutePiplineActivity",
+	"properties": {
+		"activities": [
+			{
+				"name": "ExcecutePiplineActivity",
+				"type": "ExecutePipeline",
+				"dependsOn": [],
+				"policy": {
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"pipeline": {
+						"referenceName": "006pplCopyFromSQLtoCSV",
+						"type": "PipelineReference"
+					},
+					"waitOnCompletion": true
+				}
+			}
+		],
+		"annotations": []
+	}
+}

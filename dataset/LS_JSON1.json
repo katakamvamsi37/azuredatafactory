@@ -1,0 +1,33 @@
+{
+	"name": "LS_JSON1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "adlscontainerinp",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": "Employees .json",
+				"folderPath": "Data",
+				"fileSystem": "adlscontaner"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"EmployeeKey": {
+					"type": "integer"
+				},
+				"EmpName": {
+					"type": "string"
+				},
+				"Contact": {
+					"type": "string"
+				}
+			}
+		}
+	}
+}

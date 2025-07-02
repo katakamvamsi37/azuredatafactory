@@ -1,9 +1,9 @@
 {
-	"name": "023pplCopyJSONtoCSV",
+	"name": "024pplCopyNestedJSONtoCSV",
 	"properties": {
 		"activities": [
 			{
-				"name": "CopyJSONtoCSV",
+				"name": "CopyNestedJSONtoCSV",
 				"type": "Copy",
 				"dependsOn": [],
 				"policy": {
@@ -27,15 +27,9 @@
 						}
 					},
 					"sink": {
-						"type": "DelimitedTextSink",
-						"storeSettings": {
-							"type": "AzureBlobFSWriteSettings"
-						},
-						"formatSettings": {
-							"type": "DelimitedTextWriteSettings",
-							"quoteAllText": true,
-							"fileExtension": ".csv"
-						}
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
 					},
 					"enableStaging": false,
 					"translator": {
@@ -46,7 +40,8 @@
 									"path": "$['EmployeeKey']"
 								},
 								"sink": {
-									"name": "EmployeeKey"
+									"name": "EMPID",
+									"type": "Int32"
 								}
 							},
 							{
@@ -54,29 +49,41 @@
 									"path": "$['EmpName']"
 								},
 								"sink": {
-									"name": "EmpName"
+									"name": "EMPNAME",
+									"type": "String"
 								}
 							},
 							{
 								"source": {
-									"path": "$['Contact']"
+									"path": "$['Contact']['Email']"
 								},
 								"sink": {
-									"name": "Contact"
+									"name": "EMPEMAIL",
+									"type": "String"
+								}
+							},
+							{
+								"source": {
+									"path": "$['Contact']['Phone']"
+								},
+								"sink": {
+									"name": "EMPCONTACT",
+									"type": "String"
 								}
 							}
-						]
+						],
+						"mapComplexValuesToString": false
 					}
 				},
 				"inputs": [
 					{
-						"referenceName": "LS_JSON1",
+						"referenceName": "DS_JSON2",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "LS_CSVOUTPUT",
+						"referenceName": "DS_SQL",
 						"type": "DatasetReference"
 					}
 				]
