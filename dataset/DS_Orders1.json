@@ -10,7 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "orders.csv",
+				"fileName": "order2s.csv",
 				"folderPath": "Data/Orders",
 				"fileSystem": "adlscontaner"
 			},
