@@ -1,0 +1,56 @@
+{
+	"name": "DS_SQLHeader",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureSqlDatabase1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [
+			{
+				"name": "OrderDate",
+				"type": "varchar"
+			},
+			{
+				"name": "ProductKey",
+				"type": "varchar"
+			},
+			{
+				"name": "Country",
+				"type": "varchar"
+			},
+			{
+				"name": "EnglishPoductName",
+				"type": "varchar"
+			},
+			{
+				"name": "SalesName",
+				"type": "varchar"
+			},
+			{
+				"name": "TaxAmt",
+				"type": "varchar"
+			},
+			{
+				"name": "UnitPri",
+				"type": "float",
+				"precision": 15
+			},
+			{
+				"name": "OrderQuantity",
+				"type": "int",
+				"precision": 10
+			},
+			{
+				"name": "TotalProdcut",
+				"type": "float",
+				"precision": 15
+			}
+		],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": "orderes"
+		}
+	}
+}
