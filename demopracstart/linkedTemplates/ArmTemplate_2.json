@@ -13,6 +13,85 @@
 	},
 	"resources": [
 		{
+			"name": "[concat(parameters('factoryName'), '/LS_DATA')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "adlscontainerinp",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "DelimitedText",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"folderPath": "Data",
+						"fileSystem": "adlscontaner"
+					},
+					"columnDelimiter": ",",
+					"escapeChar": "\\",
+					"firstRowAsHeader": true,
+					"quoteChar": "\""
+				},
+				"schema": [
+					{
+						"name": "DATE",
+						"type": "String"
+					},
+					{
+						"name": "COUNTRY",
+						"type": "String"
+					},
+					{
+						"name": "PRODUCT",
+						"type": "String"
+					},
+					{
+						"name": "SALES",
+						"type": "String"
+					}
+				]
+			},
+			"dependsOn": []
+		},
+		{
+			"name": "[concat(parameters('factoryName'), '/LS_JSON1')]",
+			"type": "Microsoft.DataFactory/factories/datasets",
+			"apiVersion": "2018-06-01",
+			"properties": {
+				"linkedServiceName": {
+					"referenceName": "adlscontainerinp",
+					"type": "LinkedServiceReference"
+				},
+				"annotations": [],
+				"type": "Json",
+				"typeProperties": {
+					"location": {
+						"type": "AzureBlobFSLocation",
+						"fileName": "Employees .json",
+						"folderPath": "Data",
+						"fileSystem": "adlscontaner"
+					}
+				},
+				"schema": {
+					"type": "object",
+					"properties": {
+						"EmployeeKey": {
+							"type": "integer"
+						},
+						"EmpName": {
+							"type": "string"
+						},
+						"Contact": {
+							"type": "string"
+						}
+					}
+				}
+			},
+			"dependsOn": []
+		},
+		{
 			"name": "[concat(parameters('factoryName'), '/LS_Orders')]",
 			"type": "Microsoft.DataFactory/factories/datasets",
 			"apiVersion": "2018-06-01",
@@ -110,11 +189,20 @@
 					"referenceName": "adlscontaineroutput",
 					"type": "LinkedServiceReference"
 				},
+				"parameters": {
+					"FileName": {
+						"type": "string"
+					}
+				},
 				"annotations": [],
 				"type": "DelimitedText",
 				"typeProperties": {
 					"location": {
 						"type": "AzureBlobFSLocation",
+						"fileName": {
+							"value": "@dataset().FileName",
+							"type": "Expression"
+						},
 						"folderPath": "output",
 						"fileSystem": "adlscontaner"
 					},
@@ -298,7 +386,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "outputCopy",
+								"referenceName": "outputlocation",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -311,7 +399,7 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/outputCopy')]"
+				"[concat(variables('factoryId'), '/datasets/outputlocation')]"
 			]
 		},
 		{
@@ -386,7 +474,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "outputCopy",
+								"referenceName": "outputlocation",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -399,7 +487,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/outputCopy')]"
+				"[concat(variables('factoryId'), '/datasets/LS_DATA')]",
+				"[concat(variables('factoryId'), '/datasets/outputlocation')]"
 			]
 		},
 		{
@@ -472,7 +561,7 @@
 						],
 						"outputs": [
 							{
-								"referenceName": "outputCopy",
+								"referenceName": "outputlocation",
 								"type": "DatasetReference",
 								"parameters": {}
 							}
@@ -485,7 +574,8 @@
 				"annotations": []
 			},
 			"dependsOn": [
-				"[concat(variables('factoryId'), '/datasets/outputCopy')]"
+				"[concat(variables('factoryId'), '/datasets/LS_DATA')]",
+				"[concat(variables('factoryId'), '/datasets/outputlocation')]"
 			]
 		},
 		{
@@ -1098,201 +1188,9 @@
 				},
 				"annotations": []
 			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/024CopyJSONtoSQLDB')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "Copy data1",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "JsonSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "JsonReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"path": "$['EmployeeKey']"
-										},
-										"sink": {
-											"name": "EMPID",
-											"type": "Int32"
-										}
-									},
-									{
-										"source": {
-											"path": "$['EmpName']"
-										},
-										"sink": {
-											"name": "EMPNAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['Contact']"
-										},
-										"sink": {
-											"name": "EMPCONTACT",
-											"type": "String"
-										}
-									}
-								]
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "LS_JSON1",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DS_SQL",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
-		},
-		{
-			"name": "[concat(parameters('factoryName'), '/024pplCopyNestedJSONtoCSV')]",
-			"type": "Microsoft.DataFactory/factories/pipelines",
-			"apiVersion": "2018-06-01",
-			"properties": {
-				"activities": [
-					{
-						"name": "CopyNestedJSONtoCSV",
-						"type": "Copy",
-						"dependsOn": [],
-						"policy": {
-							"timeout": "0.12:00:00",
-							"retry": 0,
-							"retryIntervalInSeconds": 30,
-							"secureOutput": false,
-							"secureInput": false
-						},
-						"userProperties": [],
-						"typeProperties": {
-							"source": {
-								"type": "JsonSource",
-								"storeSettings": {
-									"type": "AzureBlobFSReadSettings",
-									"recursive": true,
-									"enablePartitionDiscovery": false
-								},
-								"formatSettings": {
-									"type": "JsonReadSettings"
-								}
-							},
-							"sink": {
-								"type": "AzureSqlSink",
-								"writeBehavior": "insert",
-								"sqlWriterUseTableLock": false
-							},
-							"enableStaging": false,
-							"translator": {
-								"type": "TabularTranslator",
-								"mappings": [
-									{
-										"source": {
-											"path": "$['EmployeeKey']"
-										},
-										"sink": {
-											"name": "EMPID",
-											"type": "Int32"
-										}
-									},
-									{
-										"source": {
-											"path": "$['EmpName']"
-										},
-										"sink": {
-											"name": "EMPNAME",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['Contact']['Email']"
-										},
-										"sink": {
-											"name": "EMPEMAIL",
-											"type": "String"
-										}
-									},
-									{
-										"source": {
-											"path": "$['Contact']['Phone']"
-										},
-										"sink": {
-											"name": "EMPCONTACT",
-											"type": "String"
-										}
-									}
-								],
-								"mapComplexValuesToString": false
-							}
-						},
-						"inputs": [
-							{
-								"referenceName": "DS_JSON2",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						],
-						"outputs": [
-							{
-								"referenceName": "DS_SQL",
-								"type": "DatasetReference",
-								"parameters": {}
-							}
-						]
-					}
-				],
-				"policy": {
-					"elapsedTimeMetric": {}
-				},
-				"annotations": []
-			},
-			"dependsOn": []
+			"dependsOn": [
+				"[concat(variables('factoryId'), '/datasets/LS_JSON1')]"
+			]
 		}
 	]
 }
