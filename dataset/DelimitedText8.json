@@ -1,5 +1,5 @@
 {
-	"name": "DS_Orders1",
+	"name": "DelimitedText8",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "adlscontainerinp",
@@ -10,8 +10,7 @@
 		"typeProperties": {
 			"location": {
 				"type": "AzureBlobFSLocation",
-				"fileName": "orders.csv",
-				"folderPath": "Data/Orders",
+				"folderPath": "Data/Delete",
 				"fileSystem": "adlscontaner"
 			},
 			"columnDelimiter": ",",
@@ -21,39 +20,19 @@
 		},
 		"schema": [
 			{
-				"name": "OrderDate",
+				"name": "DATE",
 				"type": "String"
 			},
 			{
-				"name": "ProductKey",
+				"name": "COUNTRY",
 				"type": "String"
 			},
 			{
-				"name": "Country",
+				"name": "PRODUCT",
 				"type": "String"
 			},
 			{
-				"name": "EnglishProductName",
-				"type": "String"
-			},
-			{
-				"name": "SalesAmount",
-				"type": "String"
-			},
-			{
-				"name": "UnitPrice",
-				"type": "String"
-			},
-			{
-				"name": "OrderQuantity",
-				"type": "String"
-			},
-			{
-				"name": "TaxAmt",
-				"type": "String"
-			},
-			{
-				"name": "TotalProductCost",
+				"name": "SALES",
 				"type": "String"
 			}
 		]
