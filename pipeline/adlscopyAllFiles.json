@@ -51,13 +51,13 @@
 				},
 				"inputs": [
 					{
-						"referenceName": "copyallfileFolder",
+						"referenceName": "outputlocation",
 						"type": "DatasetReference"
 					}
 				],
 				"outputs": [
 					{
-						"referenceName": "outputCopy",
+						"referenceName": "LS_DATA",
 						"type": "DatasetReference"
 					}
 				]
