@@ -67,7 +67,7 @@
 				],
 				"outputs": [
 					{
-						"referenceName": "outputCopy",
+						"referenceName": "outputlocation",
 						"type": "DatasetReference"
 					}
 				]
