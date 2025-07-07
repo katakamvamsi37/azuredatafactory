@@ -1,5 +1,5 @@
 {
-	"name": "DS_COUNTRYDATA",
+	"name": "DS_CountryFolder",
 	"properties": {
 		"linkedServiceName": {
 			"referenceName": "adlscontainerinp",
