@@ -95,30 +95,14 @@
 							"typeProperties": {
 								"source": {
 									"type": "DelimitedTextSource",
-									"additionalColumns": [
-										{
-											"name": "COUNTRY",
-											"value": {
-												"value": "@pipeline().parameters.ParamCountry",
-												"type": "Expression"
-											}
-										},
-										{
-											"name": "REGION",
-											"value": {
-												"value": "@variables('Region')",
-												"type": "Expression"
-											}
-										}
-									],
 									"storeSettings": {
 										"type": "AzureBlobFSReadSettings",
 										"recursive": true,
 										"wildcardFolderPath": {
-											"value": "@concat('Data/Dirc',pipeline().parameters.ParamCountry,'/',variables('Region'))",
+											"value": "@concat('Data/Dirc/',pipeline().parameters.ParamCountry,'/',variables('Region'))",
 											"type": "Expression"
 										},
-										"wildcardFileName": "*.csv",
+										"wildcardFileName": "*",
 										"enablePartitionDiscovery": false
 									},
 									"formatSettings": {
@@ -133,19 +117,6 @@
 								"enableStaging": false,
 								"translator": {
 									"type": "TabularTranslator",
-									"mappings": [
-										{
-											"source": {
-												"name": "year",
-												"type": "String"
-											},
-											"sink": {
-												"name": "YEAR",
-												"type": "Int32",
-												"physicalType": "int"
-											}
-										}
-									],
 									"typeConversion": true,
 									"typeConversionSettings": {
 										"allowDataTruncation": true,
