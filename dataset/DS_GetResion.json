@@ -16,7 +16,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"folderPath": {
-					"value": "@concat('Data/Direc/',dataset().paramcountry)",
+					"value": "@concat('Data/Dirc/',dataset().paramcountry)",
 					"type": "Expression"
 				},
 				"fileSystem": "adlscontaner"

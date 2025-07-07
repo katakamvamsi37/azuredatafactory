@@ -68,7 +68,7 @@
 							"typeProperties": {
 								"variableName": "Region",
 								"value": {
-									"value": "@item().value",
+									"value": "@item().name",
 									"type": "Expression"
 								}
 							}
