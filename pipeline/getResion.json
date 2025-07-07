@@ -19,7 +19,7 @@
 						"referenceName": "DS_GetResion",
 						"type": "DatasetReference",
 						"parameters": {
-							"ParamCountry": {
+							"paramcountry": {
 								"value": "@pipeline().parameters.ParamCountry",
 								"type": "Expression"
 							}
@@ -57,7 +57,7 @@
 					"isSequential": true,
 					"activities": [
 						{
-							"name": "Set variable1",
+							"name": "get Region",
 							"type": "SetVariable",
 							"dependsOn": [],
 							"policy": {
@@ -68,7 +68,7 @@
 							"typeProperties": {
 								"variableName": "Region",
 								"value": {
-									"value": "@item().name",
+									"value": "@item().value",
 									"type": "Expression"
 								}
 							}
@@ -78,7 +78,7 @@
 							"type": "Copy",
 							"dependsOn": [
 								{
-									"activity": "Set variable1",
+									"activity": "get Region",
 									"dependencyConditions": [
 										"Succeeded"
 									]
@@ -97,14 +97,14 @@
 									"type": "DelimitedTextSource",
 									"additionalColumns": [
 										{
-											"name": "country",
+											"name": "COUNTRY",
 											"value": {
 												"value": "@pipeline().parameters.ParamCountry",
 												"type": "Expression"
 											}
 										},
 										{
-											"name": "region",
+											"name": "REGION",
 											"value": {
 												"value": "@variables('Region')",
 												"type": "Expression"
@@ -115,7 +115,7 @@
 										"type": "AzureBlobFSReadSettings",
 										"recursive": true,
 										"wildcardFolderPath": {
-											"value": "@concat('Data/Direc/',pipeline().parameters.ParamCountry,'/',variables('Region'))",
+											"value": "@concat('Data/Dirc',pipeline().parameters.ParamCountry,'/',variables('Region'))",
 											"type": "Expression"
 										},
 										"wildcardFileName": "*.csv",
@@ -133,6 +133,19 @@
 								"enableStaging": false,
 								"translator": {
 									"type": "TabularTranslator",
+									"mappings": [
+										{
+											"source": {
+												"name": "year",
+												"type": "String"
+											},
+											"sink": {
+												"name": "YEAR",
+												"type": "Int32",
+												"physicalType": "int"
+											}
+										}
+									],
 									"typeConversion": true,
 									"typeConversionSettings": {
 										"allowDataTruncation": true,
@@ -142,7 +155,7 @@
 							},
 							"inputs": [
 								{
-									"referenceName": "DS_COUNTRYDATA",
+									"referenceName": "DS_GETINVOICE",
 									"type": "DatasetReference"
 								}
 							],

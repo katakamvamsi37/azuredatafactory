@@ -6,7 +6,7 @@
 			"type": "LinkedServiceReference"
 		},
 		"parameters": {
-			"ParamCountry": {
+			"paramcountry": {
 				"type": "string"
 			}
 		},
@@ -16,7 +16,7 @@
 			"location": {
 				"type": "AzureBlobFSLocation",
 				"folderPath": {
-					"value": "@concat('Data/Direc/',dataset().ParamCountry)",
+					"value": "@concat('Data/Direc/',dataset().paramcountry)",
 					"type": "Expression"
 				},
 				"fileSystem": "adlscontaner"
